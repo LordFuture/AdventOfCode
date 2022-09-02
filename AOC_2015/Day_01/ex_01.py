@@ -1,36 +1,48 @@
 #!/usr/bin/env python3
+"""
+Code used to solve Advent of Code 2015 Day 1 exercise 1
+Advent of Code 2015, Day 01, Exercise 1
+# https://adventofcode.com/2015
+"""
+
 import os
 
+def correct_floor(file_name):
+    """
+    It opens the file, reads it line by line, and for each line, it reads each
+    character and adds or subtracts 1 from the floor number depending on whether
+    the character is an opening or closing parenthesis
 
-def get_depth_sum(file_name):
-    with open(file_name, "r", encoding="utf-8") as f:
-        depth_count = 0
-        old_value = 0
-        line_count = 0
+    :param file_name: the name of the file you want to read
+    :return: The floor number
+    """
+    with open(file_name, "r", encoding="utf-8") as file:
+        floor_number = 0
         while True:
-            line = f.readline()
+            line = file.readline()
             if not line:
                 break
-            line_count += 1
-            if line_count != 1:
-                new_value = int(line.strip())
-                if new_value > old_value:
-                    depth_count += 1
-
-                old_value = new_value
-
-    return depth_count
+            for char in line:
+                if char == '(':
+                    floor_number += 1
+                else:
+                    floor_number -= 1
+    return floor_number
 
 
 def main():
+    """
+    It opens the file, reads the file, and then counts the number of '(' and ')'
+    characters in the file
+    """
     os.system("cls || clear")
 
-    FILE_NAME_TEST_FILE = "C:/source/repos/AdventOfCode/AOC_2015/Day_01/test_file.txt"
-    FILE_NAME_PUZZLE_FILE = "C:/source/repos/AdventOfCode/AOC_2015/Day_01/puzzle_input_file.txt"
-    depth_count_test_file = get_depth_sum(FILE_NAME_TEST_FILE)
-    depth_count_puzzle_file = get_depth_sum(FILE_NAME_PUZZLE_FILE)
-    print(f"test file: {depth_count_test_file}")
-    print(f"puzzle file: {depth_count_puzzle_file}")
+    file_name_test_file = "C:/source/repos/AdventOfCode/AOC_2015/Day_01/test_file.txt"
+    file_name_puzzle_file = "C:/source/repos/AdventOfCode/AOC_2015/Day_01/puzzle_input_file.txt"
+    test_file_answer = correct_floor(file_name_test_file)
+    puzzle_file_answer = correct_floor(file_name_puzzle_file)
+    print(f"test file: {test_file_answer}")
+    print(f"puzzle file: {puzzle_file_answer}")
 
 
 if __name__ == '__main__':
